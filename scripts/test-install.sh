@@ -23,7 +23,7 @@ while [ "$#" -gt 0 ]; do
     esac
 done
 if [[ "$URL" == */releases/latest ]]; then
-    printf 'https://github.com/corywilkerson/webp2ascii/releases/tag/v1.1.0'
+    printf 'https://github.com/corywilkerson/img2dots/releases/tag/v1.1.0'
 else
     cp "$FIXTURE_DIR/assets/${URL##*/}" "$DEST"
 fi
@@ -32,7 +32,7 @@ chmod +x "$FIXTURE_DIR/bin/"*
 export PATH="$FIXTURE_DIR/bin:$PATH"
 
 make_archive() {
-    local name="webp2ascii-$1-linux-amd64"
+    local name="${2:-img2dots}-$1-linux-amd64"
     printf '#!/usr/bin/env bash\necho %s\n' "$1" > "$FIXTURE_DIR/$name"
     tar -czf "$FIXTURE_DIR/assets/$name.tar.gz" -C "$FIXTURE_DIR" "$name"
 }
@@ -40,21 +40,21 @@ make_archive 1.1.0
 (cd "$FIXTURE_DIR/assets" && shasum -a 256 ./*.tar.gz > SHA256SUMS)
 
 INSTALL_DIR="$FIXTURE_DIR/latest install" VERSION=latest bash "$PROJECT_DIR/install.sh" >/dev/null
-test "$("$FIXTURE_DIR/latest install/webp2ascii")" = 1.1.0
+test "$("$FIXTURE_DIR/latest install/img2dots")" = 1.1.0
 INSTALL_DIR="$FIXTURE_DIR/pinned" VERSION=v1.1.0 bash "$PROJECT_DIR/install.sh" >/dev/null
-test "$("$FIXTURE_DIR/pinned/webp2ascii")" = 1.1.0
+test "$("$FIXTURE_DIR/pinned/img2dots")" = 1.1.0
 
 # Existing releases have differently versioned filenames and no checksums.
-make_archive 1.0.0
+make_archive 1.0.0 webp2ascii
 INSTALL_DIR="$FIXTURE_DIR/legacy" VERSION=v1.0.1 bash "$PROJECT_DIR/install.sh" >/dev/null
-test "$("$FIXTURE_DIR/legacy/webp2ascii")" = 1.0.0
+test "$("$FIXTURE_DIR/legacy/img2dots")" = 1.0.0
 
 # Reject corrupt archives before replacing an existing installation.
-printf 'corrupted' >> "$FIXTURE_DIR/assets/webp2ascii-1.1.0-linux-amd64.tar.gz"
+printf 'corrupted' >> "$FIXTURE_DIR/assets/img2dots-1.1.0-linux-amd64.tar.gz"
 if INSTALL_DIR="$FIXTURE_DIR/pinned" VERSION=v1.1.0 bash "$PROJECT_DIR/install.sh" >"$FIXTURE_DIR/log" 2>&1; then
     echo 'Corrupt archive was accepted' >&2
     exit 1
 fi
 grep -q 'checksum verification failed' "$FIXTURE_DIR/log"
-test "$("$FIXTURE_DIR/pinned/webp2ascii")" = 1.1.0
+test "$("$FIXTURE_DIR/pinned/img2dots")" = 1.1.0
 echo 'Installer tests passed (latest, pinned, legacy, checksum failure)'

@@ -19,7 +19,7 @@ func writeOutput(path, art string) error {
 	} else if !os.IsNotExist(err) {
 		return err
 	}
-	file, err := os.CreateTemp(filepath.Dir(path), ".webp2ascii-*")
+	file, err := os.CreateTemp(filepath.Dir(path), ".img2dots-*")
 	if err != nil {
 		return err
 	}

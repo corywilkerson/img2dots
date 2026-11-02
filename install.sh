@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO="corywilkerson/webp2ascii"
+REPO="corywilkerson/img2dots"
 RELEASE_TAG="${VERSION:-latest}"
 INSTALL_DIR="${INSTALL_DIR:-$HOME/.local/bin}"
 TARGET_OS=$(uname -s | tr '[:upper:]' '[:lower:]')
@@ -23,15 +23,18 @@ case "$RELEASE_VERSION" in
 esac
 RELEASE_TAG="v$RELEASE_VERSION"
 ASSET_VERSION="$RELEASE_VERSION"
-# These original releases used 1.0.0 filenames and had no checksum manifest.
-case "$RELEASE_VERSION" in 1.0.0|1.0.1) ASSET_VERSION="1.0.0" ;; esac
-BINARY="webp2ascii-${ASSET_VERSION}-${TARGET_OS}-${TARGET_ARCH}"
+ASSET_NAME="img2dots"
+# Releases made before the rename retain their original names and lack checksums.
+case "$RELEASE_VERSION" in
+    1.0.0|1.0.1) ASSET_VERSION="1.0.0"; ASSET_NAME="webp2ascii" ;;
+esac
+BINARY="${ASSET_NAME}-${ASSET_VERSION}-${TARGET_OS}-${TARGET_ARCH}"
 ARCHIVE="$BINARY.tar.gz"
 BASE_URL="https://github.com/$REPO/releases/download/$RELEASE_TAG"
 DOWNLOAD_DIR=$(mktemp -d)
 trap 'rm -rf "$DOWNLOAD_DIR"' EXIT
 
-echo "Downloading webp2ascii $RELEASE_TAG..."
+echo "Downloading img2dots $RELEASE_TAG..."
 curl -fsSL -o "$DOWNLOAD_DIR/$ARCHIVE" "$BASE_URL/$ARCHIVE"
 if [ "$RELEASE_VERSION" != 1.0.0 ] && [ "$RELEASE_VERSION" != 1.0.1 ]; then
     curl -fsSL -o "$DOWNLOAD_DIR/SHA256SUMS" "$BASE_URL/SHA256SUMS"
@@ -49,6 +52,6 @@ fi
 
 tar -xzf "$DOWNLOAD_DIR/$ARCHIVE" -C "$DOWNLOAD_DIR" "$BINARY"
 mkdir -p "$INSTALL_DIR"
-install -m 755 "$DOWNLOAD_DIR/$BINARY" "$INSTALL_DIR/webp2ascii"
-echo "Installed to $INSTALL_DIR/webp2ascii"
-echo "Add $INSTALL_DIR to PATH if needed, then run webp2ascii -h"
+install -m 755 "$DOWNLOAD_DIR/$BINARY" "$INSTALL_DIR/img2dots"
+echo "Installed to $INSTALL_DIR/img2dots"
+echo "Add $INSTALL_DIR to PATH if needed, then run img2dots -h"

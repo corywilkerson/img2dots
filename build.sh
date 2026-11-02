@@ -2,7 +2,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-APP_NAME="webp2ascii"
+APP_NAME="img2dots"
 BUILD_VERSION="${VERSION:-dev}"
 BUILD_VERSION="${BUILD_VERSION#v}"
 case "$BUILD_VERSION" in

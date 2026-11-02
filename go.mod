@@ -1,4 +1,4 @@
-module github.com/corywilkerson/webp2ascii
+module github.com/corywilkerson/img2dots
 
 go 1.24.2
 

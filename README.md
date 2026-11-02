@@ -1,4 +1,4 @@
-# webp2ascii
+# img2dots
 
 Convert WebP, JPEG, and PNG images to **Unicode Braille art** in your terminal.
 Each character carries a 2×4 grid of dots. Works offline with local files or
@@ -15,45 +15,45 @@ conversion. [View the Braille text](examples/next-logo.txt).
 Requires Go 1.24.2 or later. Install the current Braille renderer from source:
 
 ```sh
-go install github.com/corywilkerson/webp2ascii@main
-webp2ascii -w 120 -auto-contrast photo.webp
+go install github.com/corywilkerson/img2dots@main
+img2dots -w 120 -auto-contrast photo.webp
 ```
 
 Or build a local checkout:
 
 ```sh
-git clone https://github.com/corywilkerson/webp2ascii.git
-cd webp2ascii
-go build -o webp2ascii .
-./webp2ascii photo.webp
+git clone https://github.com/corywilkerson/img2dots.git
+cd img2dots
+go build -o img2dots .
+./img2dots photo.webp
 ```
 
-On Windows, build with `go build -o webp2ascii.exe .`.
+On Windows, build with `go build -o img2dots.exe .`.
 
 ## Examples
 
 ```sh
 # More detail and a wider tonal range
-./webp2ascii -w 160 -auto-contrast photo.jpg
+./img2dots -w 160 -auto-contrast photo.jpg
 
 # Bring out shadows in a dark photograph
-./webp2ascii -w 120 -auto-contrast -g 1.4 photo.jpg
+./img2dots -w 120 -auto-contrast -g 1.4 photo.jpg
 
 # Clean silhouettes without dithering
-./webp2ascii -dither none logo.png
+./img2dots -dither none logo.png
 
 # Reverse light and dark dots
-./webp2ascii -i photo.png
+./img2dots -i photo.png
 
 # Composite transparent pixels against black
-./webp2ascii -background black logo.png
+./img2dots -background black logo.png
 
 # Read image data from a pipe
-cat photo.webp | ./webp2ascii -w 100 -
+cat photo.webp | ./img2dots -w 100 -
 
 # Save the artwork; status messages go to stderr
-./webp2ascii -o art.txt photo.png
-./webp2ascii photo.png > art.txt
+./img2dots -o art.txt photo.png
+./img2dots photo.png > art.txt
 ```
 
 Put options **before** the image path. Use `--` before filenames that start with

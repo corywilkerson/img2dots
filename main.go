@@ -43,7 +43,7 @@ type Config struct {
 
 func main() {
 	if err := run(os.Args[1:], os.Stdin, os.Stdout, os.Stderr); err != nil {
-		fmt.Fprintf(os.Stderr, "webp2ascii: %v\n", err)
+		fmt.Fprintf(os.Stderr, "img2dots: %v\n", err)
 		os.Exit(1)
 	}
 }
@@ -118,7 +118,7 @@ func readImage(path string, stdin io.Reader) (image.Image, error) {
 
 func parseFlags(args []string, stderr io.Writer) (Config, error) {
 	var config Config
-	flags := flag.NewFlagSet("webp2ascii", flag.ContinueOnError)
+	flags := flag.NewFlagSet("img2dots", flag.ContinueOnError)
 	// Return parse errors to main instead of printing the same error twice.
 	flags.SetOutput(io.Discard)
 	flags.IntVar(&config.width, "w", 80, "Output width in characters (10-1000)")
@@ -141,12 +141,12 @@ func parseFlags(args []string, stderr io.Writer) (Config, error) {
 	flags.BoolVar(&config.showVersion, "version", false, "Print the version")
 	flags.Usage = func() {
 		fmt.Fprintln(stderr, "Convert WebP, JPEG, or PNG images to Unicode Braille art.")
-		fmt.Fprintln(stderr, "\nUsage: webp2ascii [options] image\n       webp2ascii [options] -  (read from stdin)")
+		fmt.Fprintln(stderr, "\nUsage: img2dots [options] image\n       img2dots [options] -  (read from stdin)")
 		fmt.Fprintln(stderr, "\nOptions:")
 		flags.SetOutput(stderr)
 		flags.PrintDefaults()
 		flags.SetOutput(io.Discard)
-		fmt.Fprintln(stderr, "\nExamples:\n  webp2ascii -w 160 -auto-contrast photo.webp\n  webp2ascii -w 120 -auto-contrast -g 1.4 photo.png\n  webp2ascii -dither none -o art.txt logo.png\n  cat photo.jpg | webp2ascii -")
+		fmt.Fprintln(stderr, "\nExamples:\n  img2dots -w 160 -auto-contrast photo.webp\n  img2dots -w 120 -auto-contrast -g 1.4 photo.png\n  img2dots -dither none -o art.txt logo.png\n  cat photo.jpg | img2dots -")
 	}
 	if err := flags.Parse(args); err != nil {
 		return config, err

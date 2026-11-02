@@ -19,7 +19,7 @@ go.work
 
 # Build output
 dist/
-webp2ascii
+img2dots
 
 # Local sample images and editor/agent settings
 /test.*
