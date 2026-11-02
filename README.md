@@ -4,6 +4,8 @@ Convert WebP, JPEG, and PNG images to **Unicode Braille art** in your terminal.
 Each character carries a 2×4 grid of dots. Works offline with local files or
 piped image data and writes UTF-8 plain text, with no terminal escape codes.
 
+![A mountain valley rendered as Unicode Braille, with the command above the output](docs/screenshots/braille.png)
+
 ## Build and try it
 
 Requires Go 1.24.2 or later. Install the current Braille renderer from source:
