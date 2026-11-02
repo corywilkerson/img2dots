@@ -21,6 +21,9 @@ go.work
 dist/
 webp2ascii
 
-# Test files
-*.webp
-test.*
+# Local sample images and editor/agent settings
+/test.*
+.DS_Store
+.claude/
+.codex/
+.agents/
