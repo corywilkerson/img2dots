@@ -4,7 +4,11 @@ Convert WebP, JPEG, and PNG images to **Unicode Braille art** in your terminal.
 Each character carries a 2×4 grid of dots. Works offline with local files or
 piped image data and writes UTF-8 plain text, with no terminal escape codes.
 
-![A mountain valley rendered as Unicode Braille, with the command above the output](docs/screenshots/braille.png)
+![The original NeXT logo on the left and its Unicode Braille conversion on the right](docs/screenshots/next-comparison.png)
+
+NeXT logo by Paul Rand, via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:NeXT_logo.svg).
+The SVG was rasterized to the included [PNG input](examples/next-logo.png) before
+conversion. [View the Braille text](examples/next-logo.txt).
 
 ## Build and try it
 
